@@ -85,7 +85,7 @@ analytics:
 # Site Author
 author:
   name             : "Samuel Sendzul"
-  avatar           : "/images/Sam.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/images/Sam.jpeg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Data Science Portfolio"
   location         : "Stellenbosch, South Africa"
   email            :
