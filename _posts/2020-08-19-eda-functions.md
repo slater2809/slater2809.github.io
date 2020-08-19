@@ -9,7 +9,7 @@ mathjax: "true"
 
 # Exploratory Data Analysis
 
-Although often a tedious part of the machine learning process, exploratory data analysis (EDA) is one of the most important initial steps in obtaining a useful model or extracting valuable insights. Simply, EDA can be thought of as attempting to learn more about your raw data. We typically start by considering each variable independently and look to determine, among other things, the type of the variable (numeric or categorical), the distribution of NA values, etc. I usually start with spliting variables up by type, and then analysing them further with these two nifty functions I composed below. Let me know if there any improvements I can make!
+Although often a tedious part of the machine learning process, exploratory data analysis (EDA) is one of the most important initial steps in obtaining a useful model and/or extracting valuable insights from a dataset. Simply put, EDA can be thought of as attempting to understand your raw data better. We typically start by considering each variable independently and look to determine, among other things, the type of the variable (numeric or categorical), the distribution of NA values, etc. I usually start with splitting variables up by type, and then analysing them further with the two nifty functions I composed below. 
 
 Let's begin by loading the relevant modules that my functons make use of. I have also made some cosmetic adjustments to how plots will be produced by my functions.
 
