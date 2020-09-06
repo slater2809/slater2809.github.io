@@ -83,9 +83,7 @@ plt.imshow(pixels, cmap='gray')
 plt.show()
 ```
 
-
-![png](digit_recognizer_files/digit_recognizer_7_0.png)
-
+<img src="{{ site.url }}{{ site.baseurl }}/images/digit recognizer/digit_recognizer_7_0.png" alt="digit">
 
 
 ```
