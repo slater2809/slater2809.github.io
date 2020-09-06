@@ -1,3 +1,12 @@
+---
+title: "Digit Recognizer competiton by Kaggle Attempt"
+date: 2020-09-06
+tags: [mnist, convolutional neuralnetwork, tensorflow, keras, digit recognizer, python]
+header:
+excerpt: "Digit Recognizer"
+mathjax: "true"
+---
+
 I recently completed the Deep Learning course by Kaggle. The course contained an introduction to convolutional neural networks, with application to object detection. I learnt about transfer learning, how to build a image classification model from scratch, and how to improve computational efficiency and accuracy using dropout and strides in training my models. 
 
 In ths article, I look to apply what I've learnt to the Digit Recognizer challenge by Kaggle. The problem entails classifying 28x28 pixel images of hand written digits (0 to 9) from the MNIST dataset. Since the problem is quite specific, I will be building my own image classification models from scratch and I will be testing if the use of a higher than defualt values of strides, and dropout has an effect on the accuracy of my model.
