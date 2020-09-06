@@ -1,7 +1,7 @@
 ---
 title: "Digit Recognizer competiton by Kaggle Attempt"
 date: 2020-09-06
-tags: [mnist, convolutional neuralnetwork, tensorflow, keras, digit recognizer, python]
+tags: [mnist, convolutional neural network, tensorflow, keras, digit recognizer, python]
 header:
 excerpt: "Digit Recognizer"
 mathjax: "true"
