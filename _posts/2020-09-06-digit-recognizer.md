@@ -538,11 +538,6 @@ preds.shape
 
 
 
-
-```
-
-```
-
 These predictions are in the form of arrays of probabilities per case. We would like the category associated with the maximum probablity per case to be the prediction for that case.
 
 
