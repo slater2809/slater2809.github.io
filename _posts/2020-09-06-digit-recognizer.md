@@ -96,7 +96,7 @@ train[0, 0]
 
 
 
-The first training image is a 1. From the description of the problem on Kaggle, I know that each image is 28x28 pixels, and each pixel has a single pixel-value associated with it between 0 and 255. Since normalising the inputs to any neural network to be between 0 and 1 is recommended, I preprocess the data to achieve this goal.
+The first training image is of a hand-written 1. From the description of the problem on Kaggle, I know that each image is 28x28 pixels, and each pixel has a single pixel-value associated with it between 0 and 255. Since normalising the inputs to any neural network to be between 0 and 1 is recommended, I preprocess the data to achieve this goal.
 
 
 ```
