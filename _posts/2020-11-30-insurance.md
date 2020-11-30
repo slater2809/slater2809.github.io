@@ -162,23 +162,23 @@ for i in range(0, len(cat_preds)):
 ```
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/box1.png" alt="box1">
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box1.png" alt="box1">
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/box2.png" alt="box2">
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box2.png" alt="box2">
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/box3.png" alt="box3">
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box3.png" alt="box3">
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/freq1.png" alt="freq1">
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/freq1.png" alt="freq1">
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/freq2.png" alt="freq2">
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/freq2.png" alt="freq2">
 
 
 On the whole, meaningful patterns are challenging to distiguish. However, the boxplots indicate the presence of outliers. Identifying and removing these outliers may lead to an increase in test AUC. We do not do this here but note it as an opportunity.
@@ -703,7 +703,7 @@ feat_imp.plot(kind='bar', title='Feature Importances')
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/relfreq.png" alt="relfreq">
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/relfreq.png" alt="relfreq">
 
 
 We see that Building Dimension, BuildingAge, and Insurance_Period are the three most important features in predicting Claim by a substantial margin.
