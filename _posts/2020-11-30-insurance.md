@@ -1,9 +1,9 @@
 ---
 title: "Data Science Nigeria 2019 Challenge 1: Insurance Prediction by Zindi.africa Attempt"
 date: 2020-11-30
-tags: [mnist, convolutional neural network, tensorflow, keras, digit recognizer, python]
+tags: [insurance, logistic regression, hyperparameter tuning, regularization, exploratory data analysis, python]
 header:
-excerpt: "Digit Recognizer"
+excerpt: "Insurance Prediction"
 mathjax: "true"
 ---
 
