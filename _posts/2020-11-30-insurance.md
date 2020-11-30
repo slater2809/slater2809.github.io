@@ -34,8 +34,8 @@ import matplotlib as plt
 import statistics
 
 # Import the data
-train = pd.read_csv(r"C:\Users\samue\OneDrive\Documents\Zindi\Insurance\train_data.csv")
-test = pd.read_csv(r"C:\Users\samue\OneDrive\Documents\Zindi\Insurance\test_data.csv")
+train = pd.read_csv("train.csv")
+test = pd.read_csv("test.csv")
 ```
 
 A brief examination of that data shows that some missing values are encoded as "  .". We replace these.
@@ -162,23 +162,23 @@ for i in range(0, len(cat_preds)):
 ```
 
 
-![png](Insurance_files/Insurance_18_0.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/box1.png" alt="box1">
 
 
 
-![png](Insurance_files/Insurance_18_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/box2.png" alt="box2">
 
 
 
-![png](Insurance_files/Insurance_18_2.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/box3.png" alt="box3">
 
 
 
-![png](Insurance_files/Insurance_18_3.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/freq1.png" alt="freq1">
 
 
 
-![png](Insurance_files/Insurance_18_4.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/freq2.png" alt="freq2">
 
 
 On the whole, meaningful patterns are challenging to distiguish. However, the boxplots indicate the presence of outliers. Identifying and removing these outliers may lead to an increase in test AUC. We do not do this here but note it as an opportunity.
@@ -211,13 +211,6 @@ estimates = np.append(linlogreg.intercept_, linlogreg.coef_[0])
 coefs = pd.DataFrame({"Predictors":["Intercept"] + X_train.columns.tolist(), "Coefficients": estimates})
 coefs
 ```
-
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    
-
-
-
 
 <div>
 <style scoped>
@@ -399,85 +392,7 @@ Next, we fit an L1-regularised logistic regression model.
 param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000] }
 linlogl1 = GridSearchCV(LogisticRegression(penalty='l1', solver='saga'), param_grid).fit(X_train, y_train)
 linlogl1.best_params_
-```
-
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    
-
-
-
-
+``` 
     {'C': 0.001}
 
 
@@ -494,13 +409,6 @@ estimates = np.append(linlogl1.intercept_, linlogl1.coef_[0])
 coefs = pd.DataFrame({"Predictors":["Intercept"] + X_train.columns.tolist(), "Coefficients": estimates})
 coefs
 ```
-
-    C:\Users\samue\anaconda3\lib\site-packages\sklearn\linear_model\_sag.py:330: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
-      "the coef_ did not converge", ConvergenceWarning)
-    
-
-
-
 
 <div>
 <style scoped>
@@ -795,7 +703,7 @@ feat_imp.plot(kind='bar', title='Feature Importances')
 
 
 
-![png](Insurance_files/Insurance_45_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance/relfreq.png" alt="relfreq">
 
 
 We see that Building Dimension, BuildingAge, and Insurance_Period are the three most important features in predicting Claim by a substantial margin.
