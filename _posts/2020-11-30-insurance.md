@@ -1,3 +1,12 @@
+---
+title: "Data Science Nigeria 2019 Challenge 1: Insurance Prediction by Zindi.africa Attempt"
+date: 2020-11-30
+tags: [mnist, convolutional neural network, tensorflow, keras, digit recognizer, python]
+header:
+excerpt: "Digit Recognizer"
+mathjax: "true"
+---
+
 In this article, I attempt the Data Science Nigeria 2019 Challenge 1: Insurance Prediction competition on Zindi.africa. In this competition, participants are required to predict whether a given building will be damaged or not in a given time period. Olusola Insurance Company offers insurance against building damage for reasons such fire, vandalism, flood, and storm. Olusola Insurance Company would like to know which buildings are likely to be damaged in a given time window, and the competition entails buidling a model to predict the probability of having at least one claim over the insured period for a building.
 
 A description of the variables in the training and test sets can be found on https://zindi.africa/.
