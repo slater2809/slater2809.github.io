@@ -34,8 +34,8 @@ import matplotlib as plt
 import statistics
 
 # Import the data
-train = pd.read_csv(r"C:\Users\samue\OneDrive\Documents\Zindi\Insurance\train_data.csv")
-test = pd.read_csv(r"C:\Users\samue\OneDrive\Documents\Zindi\Insurance\test_data.csv")
+train = pd.read_csv("train_data.csv")
+test = pd.read_csv("test_data.csv")
 ```
 
 A brief examination of that data shows that some missing values are encoded as "  .". We replace these.
@@ -162,23 +162,22 @@ for i in range(0, len(cat_preds)):
 ```
 
 
-![png](Insurance_files/Insurance_18_0.png)
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box1.png" alt="box1">
 
 
 
-![png](Insurance_files/Insurance_18_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box2.png" alt="box2">
+
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box3.png" alt="box3">
 
 
 
-![png](Insurance_files/Insurance_18_2.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/freq1.png" alt="freq1">
 
 
-
-![png](Insurance_files/Insurance_18_3.png)
-
-
-
-![png](Insurance_files/Insurance_18_4.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/freq2.png" alt="freq2">
 
 
 On the whole, meaningful patterns are challenging to distiguish. However, the boxplots indicate the presence of outliers. Identifying and removing these outliers may lead to an increase in test AUC. We do not do this here but note it as an opportunity.
@@ -751,8 +750,7 @@ feat_imp.plot(kind='bar', title='Feature Importances')
 
 
 
-
-![png](Insurance_files/Insurance_49_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/relfreq.png" alt="relfreq">
 
 
 We see that Building Dimension, BuildingAge, and Insurance_Period are the three most important features in predicting Claim by a substantial margin.
@@ -850,4 +848,4 @@ Now, we obtain the prediction on the test set.
 dtest_pred = xgb_mod.predict(X)
 ```
 
-Zindi.africa indicated that our optimal boosted tree model had a test AUC of 0.5662.
+Zindi.africa indicated that our optimal boosted tree model had a test AUC of 0.5662. This low AUC may be because of the simple mean and mode imputation I used to ensure I could predict the entire test set. Therefore, a more powerful imputation model may yield a higher AUC.
