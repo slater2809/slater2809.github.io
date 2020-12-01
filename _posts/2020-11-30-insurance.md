@@ -7,7 +7,7 @@ excerpt: "Insurance Prediction"
 mathjax: "true"
 ---
 
-In this article, I attempt the Data Science Nigeria 2019 Challenge 1: Insurance Prediction competition on Zindi.africa. In this competition, participants are required to predict whether a given building will be damaged or not in a given time period. Olusola Insurance Company offers insurance against building damage for reasons such as fire, vandalism, flood, and storm. Olusola Insurance Company would like to know which buildings are likely to be damaged in a given time window, and the competition entails buidling a model to predict the probability of having at least one claim over the insured period for a building.
+In this article, I attempt the Data Science Nigeria 2019 Challenge 1: Insurance Prediction competition on Zindi.africa. In this competition, participants are required to predict whether a given building will be damaged or not in a given time period. Olusola Insurance Company offers insurance against building damage for reasons such fire, vandalism, flood, and storm. Olusola Insurance Company would like to know which buildings are likely to be damaged in a given time window, and the competition entails buidling a model to predict the probability of having at least one claim over the insured period for a building. The prediction accuracy metric used for this competiton is AUC.
 
 A description of the variables in the training and test sets can be found on https://zindi.africa/.
 
@@ -34,8 +34,8 @@ import matplotlib as plt
 import statistics
 
 # Import the data
-train = pd.read_csv("train.csv")
-test = pd.read_csv("test.csv")
+train = pd.read_csv(r"C:\Users\samue\OneDrive\Documents\Zindi\Insurance\train_data.csv")
+test = pd.read_csv(r"C:\Users\samue\OneDrive\Documents\Zindi\Insurance\test_data.csv")
 ```
 
 A brief examination of that data shows that some missing values are encoded as "  .". We replace these.
@@ -162,23 +162,23 @@ for i in range(0, len(cat_preds)):
 ```
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box1.png" alt="box1">
+![png](Insurance_files/Insurance_18_0.png)
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box2.png" alt="box2">
+![png](Insurance_files/Insurance_18_1.png)
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/box3.png" alt="box3">
+![png](Insurance_files/Insurance_18_2.png)
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/freq1.png" alt="freq1">
+![png](Insurance_files/Insurance_18_3.png)
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/freq2.png" alt="freq2">
+![png](Insurance_files/Insurance_18_4.png)
 
 
 On the whole, meaningful patterns are challenging to distiguish. However, the boxplots indicate the presence of outliers. Identifying and removing these outliers may lead to an increase in test AUC. We do not do this here but note it as an opportunity.
@@ -196,7 +196,7 @@ X = pd.get_dummies(train[features])
 y = train[response]
 
 # Split the training set up into traning and validate (75-25)
-X_train,X_validate,y_train,y_validate=train_test_split(X,y,test_size=0.25,random_state=0)
+X_train,X_validate,y_train,y_validate=train_test_split(X,y,test_size=0.25,random_state=27)
 ```
 
 The baseline model is chosen to be the linear logistic regression model. We fit this model now without regularisation.
@@ -238,92 +238,92 @@ coefs
     <tr>
       <th>0</th>
       <td>Intercept</td>
-      <td>-0.000584</td>
+      <td>-0.000593</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Insured_Period</td>
-      <td>-0.000500</td>
+      <td>-0.000509</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Building Dimension</td>
-      <td>0.000048</td>
+      <td>0.000046</td>
     </tr>
     <tr>
       <th>3</th>
       <td>BuildingAge</td>
-      <td>-0.018554</td>
+      <td>-0.018782</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Residential_0</td>
-      <td>-0.000483</td>
+      <td>-0.000488</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Residential_1</td>
-      <td>-0.000101</td>
+      <td>-0.000106</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Building_Painted_N</td>
-      <td>-0.000183</td>
+      <td>-0.000191</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Building_Painted_V</td>
-      <td>-0.000401</td>
+      <td>-0.000402</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Building_Fenced_N</td>
-      <td>-0.000250</td>
+      <td>-0.000263</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Building_Fenced_V</td>
-      <td>-0.000333</td>
+      <td>-0.000330</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Garden_O</td>
-      <td>-0.000250</td>
+      <td>-0.000262</td>
     </tr>
     <tr>
       <th>11</th>
       <td>Garden_V</td>
-      <td>-0.000333</td>
+      <td>-0.000331</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Settlement_R</td>
-      <td>-0.000250</td>
+      <td>-0.000262</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Settlement_U</td>
-      <td>-0.000333</td>
+      <td>-0.000331</td>
     </tr>
     <tr>
       <th>14</th>
       <td>Building_Type_1</td>
-      <td>-0.000221</td>
+      <td>-0.000212</td>
     </tr>
     <tr>
       <th>15</th>
       <td>Building_Type_2</td>
-      <td>-0.000316</td>
+      <td>-0.000312</td>
     </tr>
     <tr>
       <th>16</th>
       <td>Building_Type_3</td>
-      <td>-0.000053</td>
+      <td>-0.000064</td>
     </tr>
     <tr>
       <th>17</th>
       <td>Building_Type_4</td>
-      <td>0.000006</td>
+      <td>-0.000005</td>
     </tr>
   </tbody>
 </table>
@@ -348,7 +348,7 @@ linlogreg_accuracy_validate
 
 
 
-    0.7518337408312958
+    0.7347188264058679
 
 
 
@@ -362,8 +362,8 @@ cm
 
 
 
-    array([[1200,   62],
-           [ 344,   30]], dtype=int64)
+    array([[1172,   72],
+           [ 362,   30]], dtype=int64)
 
 
 
@@ -377,11 +377,11 @@ metrics.roc_auc_score(y_validate, linlogreg_predprob)
 
 
 
-    0.5580830444841818
+    0.5631480083995013
 
 
 
-We see that the linear logistic regression model has a validation set accuracy of 75.06% and a validation set AUC of 0.56.
+We see that the linear logistic regression model has a validation set accuracy of 73.47% and a validation set AUC of 0.56.
 
 Next, we fit an L1-regularised logistic regression model.
 
@@ -392,7 +392,12 @@ Next, we fit an L1-regularised logistic regression model.
 param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000] }
 linlogl1 = GridSearchCV(LogisticRegression(penalty='l1', solver='saga'), param_grid).fit(X_train, y_train)
 linlogl1.best_params_
-``` 
+```
+    
+
+
+
+
     {'C': 0.001}
 
 
@@ -436,7 +441,7 @@ coefs
     <tr>
       <th>0</th>
       <td>Intercept</td>
-      <td>-0.000356</td>
+      <td>-0.000361</td>
     </tr>
     <tr>
       <th>1</th>
@@ -446,12 +451,12 @@ coefs
     <tr>
       <th>2</th>
       <td>Building Dimension</td>
-      <td>0.000010</td>
+      <td>0.000007</td>
     </tr>
     <tr>
       <th>3</th>
       <td>BuildingAge</td>
-      <td>-0.013568</td>
+      <td>-0.013717</td>
     </tr>
     <tr>
       <th>4</th>
@@ -529,7 +534,7 @@ coefs
 
 
 
-We see that only BuildingAge has a non-zero parameter estimate.
+We see that Building Dimension and BuildingAge are the only variables with non-zero parameter estimates.
 
 
 ```python
@@ -541,8 +546,8 @@ cm
 
 
 
-    array([[1241,   21],
-           [ 368,    6]], dtype=int64)
+    array([[1223,   21],
+           [ 389,    3]], dtype=int64)
 
 
 
@@ -556,7 +561,7 @@ linlogl1_accuracy_validate
 
 
 
-    0.7622249388753056
+    0.7493887530562348
 
 
 
@@ -570,7 +575,7 @@ metrics.roc_auc_score(y_validate, linlogl1_predprob)
 
 
 
-    0.5311988864123665
+    0.5305322691777676
 
 
 
@@ -591,9 +596,8 @@ param_test1 = {
  'min_child_weight':range(1,6,2)
 }
 
-gsearch1 = GridSearchCV(estimator = XGBClassifier(learning_rate =0.1, n_estimators=140, max_depth=5,
- min_child_weight=1, gamma=0, subsample=0.8, colsample_bytree=0.8,
- objective= 'binary:logistic', nthread=4, scale_pos_weight=1, seed=27), 
+gsearch1 = GridSearchCV(estimator = XGBClassifier(learning_rate =0.01, n_estimators=100,
+ objective = 'binary:logistic', seed=27), 
  param_grid = param_test1, scoring='roc_auc', cv=5)
 
 gsearch1.fit(X_train, y_train, eval_metric='auc')
@@ -613,9 +617,9 @@ gsearch1.best_params_
 param_test2 = {
  'gamma':[i/10.0 for i in range(0,5)]
 }
-gsearch2 = GridSearchCV(estimator = XGBClassifier(learning_rate =0.1, n_estimators=140, max_depth=4,
- min_child_weight=6, gamma=0, subsample=0.8, colsample_bytree=0.8,
- objective= 'binary:logistic', nthread=4, scale_pos_weight=1,seed=27), 
+gsearch2 = GridSearchCV(estimator = XGBClassifier(learning_rate =0.01, n_estimators=100, max_depth=3,
+ min_child_weight=1,
+ objective = 'binary:logistic', seed=27), 
  param_grid = param_test2, scoring='roc_auc', cv=5)
 gsearch2.fit(X_train, y_train, eval_metric='auc')
 gsearch2.best_params_
@@ -624,7 +628,7 @@ gsearch2.best_params_
 
 
 
-    {'gamma': 0.4}
+    {'gamma': 0.0}
 
 
 
@@ -635,9 +639,9 @@ param_test3 = {
  'subsample':[i/10.0 for i in range(6,10)],
  'colsample_bytree':[i/10.0 for i in range(6,10)]
 }
-gsearch3 = GridSearchCV(estimator = XGBClassifier( learning_rate =0.1, n_estimators=177, max_depth=4,
- min_child_weight=6, gamma=0, subsample=0.8, colsample_bytree=0.8,
- objective= 'binary:logistic', nthread=4, scale_pos_weight=1,seed=27), 
+gsearch3 = GridSearchCV(estimator = XGBClassifier( learning_rate =0.01, n_estimators=100, max_depth=3,
+ min_child_weight=1, gamma=0.0,
+ objective= 'binary:logistic', seed=27), 
  param_grid = param_test3, scoring='roc_auc', cv=5)
 gsearch3.fit(X_train, y_train, eval_metric='auc')
 gsearch3.best_params_
@@ -646,23 +650,68 @@ gsearch3.best_params_
 
 
 
-    {'colsample_bytree': 0.6, 'subsample': 0.9}
+    {'colsample_bytree': 0.8, 'subsample': 0.6}
 
 
 
-Now, we use the optimal values of max_depth, min_child_weight, gamma, subsample, and colsample_tree to fit the final model.
+Next, we tune n_estimators. This parameter is crucial as too a high a value leads to overfitting and too low a value leads to underfitting.
+
+
+```python
+# Tune n_estimators
+param_test4 = {
+ 'n_estimators': range(0, 1000, 100)
+}
+gsearch4 = GridSearchCV(estimator = XGBClassifier(learning_rate =0.01, max_depth=3,
+ min_child_weight=1, gamma=0.0, colsample_bytree = 0.8, subsample = 0.6,
+ objective= 'binary:logistic', seed=27), 
+ param_grid = param_test4, scoring='roc_auc', cv=5)
+gsearch4.fit(X_train, y_train, eval_metric='auc')
+gsearch4.best_params_
+```
+
+
+
+
+    {'n_estimators': 500}
+
+
+
+Now, we narrow the grid and continue to search for the optimal value.
+
+
+```python
+param_test5 = {
+ 'n_estimators': range(400, 600, 10)
+}
+gsearch5 = GridSearchCV(estimator = XGBClassifier(learning_rate =0.01, max_depth=3,
+ min_child_weight=1, gamma=0.0, colsample_bytree = 0.8, subsample = 0.6,
+ objective= 'binary:logistic', seed=27), 
+ param_grid = param_test5, scoring='roc_auc', cv=5)
+gsearch5.fit(X_train, y_train, eval_metric='auc')
+gsearch5.best_params_
+```
+
+
+
+
+    {'n_estimators': 500}
+
+
+
+Now, we use the optimal values of max_depth, min_child_weight, gamma, subsample, colsample_tree, and n_estimators to fit the final model.
 
 
 ```python
 # Fit the optimal model and examine the features importance plot
 xgb_mod = XGBClassifier(
  learning_rate =0.01,
- n_estimators=5000,
+ n_estimators=500,
  max_depth=3,
  min_child_weight=1,
- gamma=0.4,
- subsample=0.6,
- colsample_bytree=0.9,
+ gamma=0.0,
+ subsample=0.8,
+ colsample_bytree=0.6,
  objective= 'binary:logistic',
  seed=27)
 
@@ -670,22 +719,22 @@ xgb_mod = XGBClassifier(
 xgb_mod.fit(X=X_train, y=y_train, eval_metric='auc')
 
 # Predict validation set: 
-dtrain_predictions = xgb_mod.predict(X_validate)
-dtrain_predprob = xgb_mod.predict_proba(X_validate)[:,1]
+dvalidate_predictions = xgb_mod.predict(X_validate)
+dvalidate_predprob = xgb_mod.predict_proba(X_validate)[:,1]
 ```
 
 
 ```python
 # Print model report:
-print("Accuracy : %.4g" % metrics.accuracy_score(y_validate, dtrain_predictions))
-print("AUC Score (Validation): %f" % metrics.roc_auc_score(y_validate, dtrain_predprob))
+print("Accuracy : %.4g" % metrics.accuracy_score(y_validate, dvalidate_predictions))
+print("AUC Score (Validation): %f" % metrics.roc_auc_score(y_validate, dvalidate_predprob))
 ```
 
     Accuracy : 0.7812
-    AUC Score (Validation): 0.684713
+    AUC Score (Validation): 0.728489
     
 
-We see that the optimal boosted classification tree model has a validation accuracy of 78.12% and a validation AUC of 0.6847. 
+We see that the optimal boosted classification tree model has a validation accuracy of 78.12% and a validation AUC of 0.7285. 
 
 Next, we examine a feature importance plot of the optimal boosted classification tree model.
 
@@ -698,12 +747,12 @@ feat_imp.plot(kind='bar', title='Feature Importances')
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x1e3164aea88>
+    <matplotlib.axes._subplots.AxesSubplot at 0x1c70bb05fc8>
 
 
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/Insurance/relfreq.png" alt="relfreq">
+![png](Insurance_files/Insurance_49_1.png)
 
 
 We see that Building Dimension, BuildingAge, and Insurance_Period are the three most important features in predicting Claim by a substantial margin.
@@ -720,12 +769,12 @@ xgb_mod.fit(X=X, y=y, eval_metric='auc')
 
 
     XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
-                  colsample_bynode=1, colsample_bytree=0.9, gamma=0.4,
+                  colsample_bynode=1, colsample_bytree=0.6, gamma=0.0,
                   learning_rate=0.01, max_delta_step=0, max_depth=3,
-                  min_child_weight=1, missing=None, n_estimators=5000, n_jobs=1,
+                  min_child_weight=1, missing=None, n_estimators=500, n_jobs=1,
                   nthread=None, objective='binary:logistic', random_state=0,
                   reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=27,
-                  silent=None, subsample=0.6, verbosity=1)
+                  silent=None, subsample=0.8, verbosity=1)
 
 
 
@@ -801,4 +850,4 @@ Now, we obtain the prediction on the test set.
 dtest_pred = xgb_mod.predict(X)
 ```
 
-Zindi.africa indicated that our optimal boosted tree model had a test AUC of 0.5735.
+Zindi.africa indicated that our optimal boosted tree model had a test AUC of 0.5662.
