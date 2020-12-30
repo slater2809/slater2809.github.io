@@ -386,8 +386,7 @@ learn.lr_find()
 
 
 
-
-![png](NLP_with_disaster_tweets_files/NLP_with_disaster_tweets_19_2.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/disaster-tweets/NLP_with_disaster_tweets_19_2.png" alt="lr1">
 
 
 Here we see that the learning rate that results in the steepest loss reduction is around 1e-1. Using this learning rate as `lr_max`, we fit for one epoch using `fit_one_cycle`. We save the model after this training cycle.
@@ -456,9 +455,7 @@ learn.lr_find()
     SuggestedLRs(lr_min=0.0007585775572806596, lr_steep=0.001737800776027143)
 
 
-
-
-![png](NLP_with_disaster_tweets_files/NLP_with_disaster_tweets_23_2.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/disaster-tweets/NLP_with_disaster_tweets_23_2.png" alt="lr2">
 
 
 Here we see that it is 1e-3.
