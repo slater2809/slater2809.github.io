@@ -1,39 +1,68 @@
-# Natural Language Processing with Disaster Tweets: Kaggle Competition Attempt
-
-In this article, I attempt the Natural Language Processing with Disaster Tweets Kaggle competition. The competition entails predicting which tweets are about real disaster, and which are not. If we are able to predict whether a tweet is about a real disaster or emergency (e.g. a tweet from someone witnessing a wildfire), the relevant agencies can be contacted immidiatley to provide assistance in dealing with the disaster. The full competition description is available on the Kaggle website.
-
-I will be using the knowledge I have recently gained from the course I completed called *Practical Deep Learnign for Coders* by fastai. The course introduces you to many useful applications of deep learning today and how to solve deep learning problems using the fastai and PyTorch libraries. You will also learn about ethical issues machine learning practioners face today and how to develop frameworks to tackle these issues. It is truly an incredible course and I highly recommend it. See https://course.fast.ai/ for more details.
-
-I will tackle this text classification problem using the Universal Language Model Fine-tuning (ULMFit) approach, which is outlined in chapter 10 of *Practical Deep Learnign for Coders*. The approach consists of three steps:
-
-1. Start by fine-tuning a pretrained language model on the target corpus of text in order to learn useful embeddings for the words in the corpus.
-
-2. Fine-tune the model obtain after completing step 1 to a text classifier.
-
-3. Use the text classifier obtained in step 2 to predict whether a tweet pertains to a disaster or not.
-
+---
+title: "Natural Language Processing with Disaster Tweets: Kaggle Competition Attempt"
+date: 2020-12-30
+tags: [nlp, classification, wikinet-103, deep learning, rnn, natural language processing, lstm, awd, python]
+header:
+excerpt: "Natural Language Processing with Disaster Tweets"
+mathjax: "true"
+---
+
+# Natural Language Processing with Disaster Tweets: Kaggle Competition Attempt
+
+
+
+In this article, I attempt the Natural Language Processing with Disaster Tweets Kaggle competition. The competition entails predicting which tweets are about real disaster, and which are not. If we are able to predict whether a tweet is about a real disaster or emergency (e.g. a tweet from someone witnessing a wildfire), the relevant agencies can be contacted immidiatley to provide assistance in dealing with the disaster. The full competition description is available on the Kaggle website.
+
+
+
+I will be using the knowledge I have recently gained from the course I completed called *Practical Deep Learnign for Coders* by fastai. The course introduces you to many useful applications of deep learning today and how to solve deep learning problems using the fastai and PyTorch libraries. You will also learn about ethical issues machine learning practioners face today and how to develop frameworks to tackle these issues. It is truly an incredible course and I highly recommend it. See https://course.fast.ai/ for more details.
+
+
+
+I will tackle this text classification problem using the Universal Language Model Fine-tuning (ULMFit) approach, which is outlined in chapter 10 of *Practical Deep Learnign for Coders*. The approach consists of three steps:
+
+
+
+1. Start by fine-tuning a pretrained language model on the target corpus of text in order to learn useful embeddings for the words in the corpus.
+
+
+
+2. Fine-tune the model obtain after completing step 1 to a text classifier.
+
+
+
+3. Use the text classifier obtained in step 2 to predict whether a tweet pertains to a disaster or not.
+
+
+
 I will be using the AWD-LSTM architecture for my recurrent neural network (RNN) language model. The langauge model has already been trained on the WikiText-103 dataset and has learned useful embeddings from there. Even though an accurate text classifier can be built from the embeddings in the pretrained model, we can build an even more accurate classifier by fine-tuning the pretrained model on the target corpus. The reason for this is that the language style used in tweets is, in general, different from that of Wikipedia articles. By allowing the langauge model to learn the style of the target corpus, the emdeddings learnt will be even more useful.
 
 Let's begin by importing the necessary libraries and the training and test datasets.
 
 
 ```
-!pip install -Uqq fastbook
-import fastbook
+!pip install -Uqq fastbook
+
+import fastbook
+
 fastbook.setup_book()
 ```
 
 
 ```
-from fastai.text.all import *
-
+from fastai.text.all import *
+
+
+
 import pandas as pd
 ```
 
 
 ```
-# Import the training and test set
-train_df = pd.read_csv("train.csv")
+# Import the training and test set
+
+train_df = pd.read_csv("train.csv")
+
 test_df = pd.read_csv("test.csv")
 ```
 
@@ -193,18 +222,24 @@ test_df.head()
 
 
 
-I will only be using the tweets in the "text" column as predictors in my final classification model. I'm doing this because I would like to focus on building a pure text classifier.
-
-Next, we move on to fine-tuning our pretrained language model. Since we are not yet looking to predict the labels associated with the tweets, and are only looking to learn the best possible embeddings for the words within the tweets, we use the full corpus (both the training and test sets) to train our language model.
-
+I will only be using the tweets in the "text" column as predictors in my final classification model. I'm doing this because I would like to focus on building a pure text classifier.
+
+
+
+Next, we move on to fine-tuning our pretrained language model. Since we are not yet looking to predict the labels associated with the tweets, and are only looking to learn the best possible embeddings for the words within the tweets, we use the full corpus (both the training and test sets) to train our language model.
+
+
+
 We are not commiting data leakage as the labels of the tweets have not been used in any way to influence the models predictions.
 
 The first step here is to concatentate the "text" columns in the training and test sets.
 
 
 ```
-# Concatenate the "text" in both the training and test sets to train the language model
-frames = [train_df["text"], test_df["text"]]
+# Concatenate the "text" in both the training and test sets to train the language model
+
+frames = [train_df["text"], test_df["text"]]
+
 lm_df = pd.DataFrame(pd.concat(frames, axis=0))
 ```
 
@@ -264,15 +299,20 @@ lm_df.head()
 
 
 
-Now, we create the `Dataloaders` for training the language model. fastai automatically takes care of tokenization and numericalization when creating the `DataBlock`. Using `is_lm=True` tells `TextBlock` that we want to train a language model and that it should create the response accordingly. `Dataloaders` also takes care of batch collation (which can be tricky in NLP problems).
-
+Now, we create the `Dataloaders` for training the language model. fastai automatically takes care of tokenization and numericalization when creating the `DataBlock`. Using `is_lm=True` tells `TextBlock` that we want to train a language model and that it should create the response accordingly. `Dataloaders` also takes care of batch collation (which can be tricky in NLP problems).
+
+
+
 We use a validation set comprising of 10% of the input data.
 
 
 ```
-# Create the dataloaders for the language model
-dls_lm = DataBlock(blocks=TextBlock.from_df('text', is_lm=True),
-                    get_x=ColReader('text'),
+# Create the dataloaders for the language model
+
+dls_lm = DataBlock(blocks=TextBlock.from_df('text', is_lm=True),
+
+                    get_x=ColReader('text'),
+
                     splitter=RandomSplitter(valid_pct=0.1, seed=42)).dataloaders(lm_df, bs=128, seq_len=80)
 ```
 
@@ -319,9 +359,12 @@ We now create our `Learner`, which encompasses our pretrained model.
 
 
 ```
-# Intantiate the language model
-learn = language_model_learner(
-    dls_lm, AWD_LSTM, drop_mult=0.3, 
+# Intantiate the language model
+
+learn = language_model_learner(
+
+    dls_lm, AWD_LSTM, drop_mult=0.3, 
+
     metrics=[accuracy, Perplexity()]).to_fp16()
 ```
 
@@ -351,9 +394,12 @@ Here we see that the learning rate that results in the steepest loss reduction i
 
 
 ```
-# Fine-tune the pretrained model
-# Fit for one epoch and then save the model
-learn.fit_one_cycle(1, lr_max=1e-1)
+# Fine-tune the pretrained model
+
+# Fit for one epoch and then save the model
+
+learn.fit_one_cycle(1, lr_max=1e-1)
+
 learn.save('1epoch')
 ```
 
@@ -393,8 +439,10 @@ Next, we unfreeze the full RNN and find the optimal maximum learning rate for tr
 
 
 ```
-# Unfreeze the pretrained model and find the optimal max learning rate
-learn.unfreeze()
+# Unfreeze the pretrained model and find the optimal max learning rate
+
+learn.unfreeze()
+
 learn.lr_find()
 ```
 
@@ -489,7 +537,8 @@ We now save the encoder of the language model (i.e. the model without the head) 
 
 
 ```
-# Save the encoder of the language model for use in text classification
+# Save the encoder of the language model for use in text classification
+
 learn.save_encoder('finetuned')
 ```
 
@@ -497,12 +546,18 @@ Next, we move on to building the text classifier. We must start by building the 
 
 
 ```
-# Create the classifier Dataloaders
-dls_clas = DataBlock(
-    blocks=(TextBlock.from_df("text", vocab=dls_lm.vocab),CategoryBlock),
-    get_y = ColReader("target"),
-    get_x = ColReader("text"),
-    splitter=RandomSplitter(seed=42, valid_pct=0.1)
+# Create the classifier Dataloaders
+
+dls_clas = DataBlock(
+
+    blocks=(TextBlock.from_df("text", vocab=dls_lm.vocab),CategoryBlock),
+
+    get_y = ColReader("target"),
+
+    get_x = ColReader("text"),
+
+    splitter=RandomSplitter(seed=42, valid_pct=0.1)
+
 ).dataloaders(train_df, bs=128, seq_len=72)
 ```
 
@@ -552,10 +607,14 @@ Here we create the text classifier model and load the encoder from our trained l
 
 
 ```
-# Create the tweet classifier
-learn = text_classifier_learner(dls_clas, AWD_LSTM, drop_mult=0.5, 
-                                metrics=[accuracy, F1Score()]).to_fp16()
-# Load the encoder obtained from the language model
+# Create the tweet classifier
+
+learn = text_classifier_learner(dls_clas, AWD_LSTM, drop_mult=0.5, 
+
+                                metrics=[accuracy, F1Score()]).to_fp16()
+
+# Load the encoder obtained from the language model
+
 learn = learn.load_encoder('finetuned')
 ```
 
@@ -595,7 +654,8 @@ Using gradual unfreezing, we train the full model. We also pass a `slice` to `lr
 
 
 ```
-learn.freeze_to(-2)
+learn.freeze_to(-2)
+
 learn.fit_one_cycle(1, slice(1e-2/(2.6**4),1e-2))
 ```
 
@@ -626,7 +686,8 @@ learn.fit_one_cycle(1, slice(1e-2/(2.6**4),1e-2))
 
 
 ```
-learn.freeze_to(-3)
+learn.freeze_to(-3)
+
 learn.fit_one_cycle(1, slice(5e-3/(2.6**4),5e-3))
 ```
 
@@ -657,7 +718,8 @@ learn.fit_one_cycle(1, slice(5e-3/(2.6**4),5e-3))
 
 
 ```
-learn.unfreeze()
+learn.unfreeze()
+
 learn.fit_one_cycle(3, slice(1e-3/(2.6**4),1e-3))
 ```
 
@@ -706,7 +768,8 @@ We see that we obtain a text classifier with an 78.7122% accuracy and an F1 scor
 
 
 ```
-test_dl = dls_clas.test_dl(test_df)
+test_dl = dls_clas.test_dl(test_df)
+
 preds = learn.get_preds(dl=test_dl)
 ```
 
@@ -716,15 +779,23 @@ preds = learn.get_preds(dl=test_dl)
 
 
 ```
-# Convert the predictions to a list of 0s and 1s
-preds = [int(preds[0][i][1] > 0.5) for i in range(0, len(preds[0]))]
-
-# Create the predictions dataframe and export
-predictions = pd.DataFrame({"id":test_df["id"], "target":preds})
-
+# Convert the predictions to a list of 0s and 1s
+
+preds = [int(preds[0][i][1] > 0.5) for i in range(0, len(preds[0]))]
+
+
+
+# Create the predictions dataframe and export
+
+predictions = pd.DataFrame({"id":test_df["id"], "target":preds})
+
+
+
 predictions.to_csv("predictions.csv")
 ```
 
-According to Kaggle, my submission had an F1 score of 0.80079. It is truly amazing to see what is possible with fastai and PyTorch with so few lines of code. 
-
+According to Kaggle, my submission had an F1 score of 0.80079. It is truly amazing to see what is possible with fastai and PyTorch with so few lines of code. 
+
+
+
 Possible areas of improvement include: attempting to utilise the other features available in the data sets to predict the response (the missing values would require imputation), and utilising ensemble learning with other models (such as a naive Bayes classifier).
