@@ -539,7 +539,7 @@ We now save the encoder of the language model (i.e. the model without the head) 
 learn.save_encoder('finetuned')
 ```
 
-Next, we move on to building the text classifier. We must start by building the `Dataloaders` and `DataBlock`. Now, we use the binary response as our target and the tweets as our predictors. We use a validation set of 20% of the original training set.
+Next, we move on to building the text classifier. We must start by building the `Dataloaders` and `DataBlock`. Now, we use the binary response as our target and the tweets as our predictors. We use a validation set of 10% of the original training set.
 
 
 ```
@@ -791,7 +791,7 @@ predictions = pd.DataFrame({"id":test_df["id"], "target":preds})
 predictions.to_csv("predictions.csv")
 ```
 
-According to Kaggle, my submission had an F1 score of 0.80079. It is truly amazing to see what is possible with fastai and PyTorch with so few lines of code. 
+According to Kaggle, my submission obtained an F1 score of 0.80079. It is truly amazing to see what is possible with fastai and PyTorch with so few lines of code. 
 
 
 
