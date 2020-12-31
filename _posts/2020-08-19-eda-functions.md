@@ -120,8 +120,4 @@ def EDACV(var, df):
     return(out)	
 ```
 
-I hope you can make use of these functions in assisting with one of the most important steps in the data science workflow! 
-
-All the best,
-
-Sam
+I hope you can make use of these functions in assisting with one of the most important steps in the data science workflow!
