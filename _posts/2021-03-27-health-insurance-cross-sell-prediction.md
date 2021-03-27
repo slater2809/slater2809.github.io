@@ -1844,27 +1844,205 @@ len(to_keep)
 
 
 ```python
+# Create the training and sets
+train_data = lgb.Dataset(X_train, label=y_train)
+validation_data = lgb.Dataset(X_val, label=y_val)
+```
+
+
+```python
+# Train a LightGBM model with default values
+parameters = {'objective' : 'binary',
+              'metric' : 'auc',
+              'seed' : 1,
+              'verbose' : 0}
+bst = lgb.train(parameters, train_data, valid_sets=[validation_data], verbose_eval=False)
+```
+
+    [LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.001517 seconds.
+    You can set `force_row_wise=true` to remove the overhead.
+    And if memory is not enough, you can set `force_col_wise=true`.
+    
+
+
+```python
+# Calculate the validation set AUC
+roc_auc_score(y_true=y_val, y_score=bst.predict(X_val))
+```
+
+
+
+
+    0.8536486788387558
+
+
+
+The LightGBM classifier has a validation set AUC of 0.8536, slightly better than the random forest. Let's see if we can improve on this result by implementing hyperparameter tuning for the learning rate and the max depth of each tree, and utiltising early stopping.
+
+
+```python
+# Create the parameter grid
+max_depth = np.arange(1, 11)
+learning_rate = np.arange(0.01, 0.11, 0.01)
+param_grid = [(x, y) for x in max_depth for y in learning_rate]
+
+# Create the lists to hold the validation set AUC scores and early stopping iterations
+val_auc = [0]*len(param_grid)
+boosting_iterations = [0]*len(param_grid)
+```
+
+
+```python
+# Perform hyperparameter tuning
+for i in range(0, len(param_grid)):
+    
+    # Create the parameter dict
+    parameters = {
+                    'objective': 'binary',
+                    'metric': 'auc',
+                    'max_depth': param_grid[i][0],
+                    'learning_rate': param_grid[i][1],
+                    'verbose' : -1,
+                    'seed' : 1
+                }
+    
+    # Train the classifier
+    bst = lgb.train(parameters, train_data, valid_sets=[validation_data], num_boost_round=5000, early_stopping_rounds=100, 
+                    verbose_eval=False)
+    
+    # Calculate the validation set AUC
+    val_auc[i] = roc_auc_score(y_true=y_val, y_score=bst.predict(X_val, num_iteration=bst.best_iteration))
+    boosting_iterations[i] = bst.best_iteration
+```
+
+
+```python
+# Examine which parameter values led to the highest validation set AUC
+print("Max validation set AUC:", val_auc[np.where(val_auc == np.max(val_auc))[0][0]])
+print("Optimal paramater values:", param_grid[np.where(val_auc == np.max(val_auc))[0][0]])
+print("Optimal boosting iterations:", boosting_iterations[np.where(val_auc == np.max(val_auc))[0][0]])
+```
+
+    Max validation set AUC: 0.8544605311928813
+    Optimal paramater values: (2, 0.09)
+    Optimal boosting iterations: 891
+    
+
+We see that the optimal LightGBM model has a validation set AUC of 0.8545. Now, let's examine feature importance.
+
+
+```python
+# Train the optimal model
+parameters = {
+                'objective': 'binary',
+                'metric': 'auc',
+                'max_depth': 2,
+                'learning_rate': 0.09,
+                'verbose' : -1,
+                'seed' : 1
+                }
+bst = lgb.train(parameters, train_data, valid_sets=[validation_data], num_boost_round=1500, early_stopping_rounds=100, 
+                verbose_eval=False)
+```
+
+
+```python
+def lgb_feat_importance(m, df):
+    return pd.DataFrame({'cols':df.columns, 'imp':m.feature_importance()}
+                       ).sort_values('imp', ascending=False)
+```
+
+
+```python
+fi = lgb_feat_importance(bst, X_val)
+plot_fi(fi)
+```
+
+
+
+
+    <AxesSubplot:ylabel='cols'>
+
+
+
+
+    
+![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_95_1.png)
+    
+
+
+This is interesting. The optimal LightGBM classifier has a fairly different ordering of the inputs in terms of feature importance than the optimal random forest. Let's examine the partial dependence plots of the two most important numerical predictors.
+
+
+```python
+# Use the sklearn API to train the classifier
+bst_sk = lgb.LGBMClassifier(objective='binary', max_depth=2, learning_rate=0.09,  random_state=1,n_estimators=1500)
+
+bst_sk.fit(X_train, y_train, verbose=False, 
+        early_stopping_rounds=100, eval_set=[(X_val, y_val)], eval_metric='auc')
+```
+
+
+
+
+    LGBMClassifier(learning_rate=0.09, max_depth=2, n_estimators=1500,
+                   objective='binary', random_state=1)
+
+
+
+
+```python
+fig,ax = plt.subplots(figsize=(12, 4))
+plot_partial_dependence(bst_sk, X_val, ['Age','Annual_Premium'],
+                        grid_resolution=20, ax=ax);
+```
+
+
+    
+![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_98_0.png)
+    
+
+
+
+```python
+fig,ax = plt.subplots(figsize=(8, 4))
+plot_partial_dependence(bst_sk, X_val, ['Vintage'],
+                        grid_resolution=20, ax=ax);
+```
+
+
+    
+![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_99_0.png)
+    
+
+
+It seems that the optimal LightGBM model has identified similar marginal relationships between the numerical inputs and the response to the optimal random forest model. 
+
+Let's see how the validation set AUC is impacted if we remove the least important predictors.
+
+
+```python
+# Select the most important features
+to_keep = fi[fi.imp>100].cols
+len(to_keep)
+```
+
+
+
+
+    7
+
+
+
+
+```python
 X_train_imp = X_train[to_keep]
 X_val_imp = X_val[to_keep]
 
 # Create the LightGBM training and validation sets
 train_data = lgb.Dataset(X_train_imp , label=y_train)
-validation_data = lbg.Dataset(X_val_imp, label=y_val)
+validation_data = lgb.Dataset(X_val_imp, label=y_val)
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    <ipython-input-67-74c0658830eb> in <module>
-          4 # Create the LightGBM training and validation sets
-          5 train_data = lgb.Dataset(X_train_imp , label=y_train)
-    ----> 6 validation_data = lbg.Dataset(X_val_imp, label=y_val)
-    
-
-    NameError: name 'lbg' is not defined
-
 
 
 ```python
@@ -1885,6 +2063,13 @@ bst = lgb.train(parameters, train_data, valid_sets=[validation_data], num_boost_
 ```python
 roc_auc_score(y_true=y_val, y_score=bst.predict(X_val_imp, num_iteration=bst.best_iteration))
 ```
+
+
+
+
+    0.8437593601700379
+
+
 
 We see that dropping Gender and Previously_Insured leads to a minisule reduction in validation set AUC.
 
@@ -1911,6 +2096,12 @@ print("Validation set AUC of the Random Forest:", roc_auc_score(y_true=y_val, y_
 print("Validation set AUC of the LightGBM:", roc_auc_score(y_true=y_val, y_score=light_preds))
 print("Validation set AUC of the Ensemble:", roc_auc_score(y_true=y_val, y_score=ensemble_preds))
 ```
+
+    Validation set AUC of the Decision Tree: 0.8151286196037801
+    Validation set AUC of the Random Forest: 0.8382344369510689
+    Validation set AUC of the LightGBM: 0.8437593601700379
+    Validation set AUC of the Ensemble: 0.8406575312625412
+    
 
 We see that we end on a marginally lower validation set AUC than the LightGBM model if we use the ensemble. It seems that here, the ensemble validation set AUC is weighed down by the random forest and decision tree. Furthermore, we may expect tree based methods to make predictions in a somewhat similar fashion, and thus their errors may be positivley correlated. Perhaps the inclusion of a method such as logistic regression or a support vector machine may have led to a different result.
 
@@ -1949,6 +2140,13 @@ bst = lgb.train(parameters, train_data, num_boost_round=891)
 
 roc_auc_score(y_true=y_oot, y_score=bst.predict(X_oot_imp))
 ```
+
+
+
+
+    0.85019012372866
+
+
 
 That is excellent! Usually, a degredation in AUC is expected when the case-to-control ratio returns to its original level. However, it seems that the increase in training data has outweighed this tendancy.
 
