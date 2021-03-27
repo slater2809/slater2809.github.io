@@ -1,3 +1,12 @@
+---
+title: "Health Insurance Cross Sell Prediction: Kaggle Competition Attempt"
+date: 2021-03-27
+tags: [python, classification, lightgbm, exploratory data analysis, lightbgm, decision tree, random forest, class imbalance, propensity, supervised learning]
+header:
+excerpt: "Health Insurance Cross Sell Prediction"
+mathjax: "true"
+---
+
 # Health Insurance Cross Sell Prediction: Kaggle Competition Attempt
 
 Below, I attempt the Health Insurance Cross Sell Prediction competition on Kaggle. In this competition, competitors are required to predict which health insurance policy holders from the previous year would be interetsed in vehicle insurance in the current year, based on a variety of measurements the insurance company has on these customers. Being able to predict the propensity of customers to take up a particular insurance policy is extremely useful for the insurance company as they are then able to better structure their communication strategy in order to achieve a high take up rate.
