@@ -303,8 +303,7 @@ print('Percentage of controls is:', case_perc)
     
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_10_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_10_1.png" alt="lr2">
     
 
 
@@ -386,9 +385,8 @@ sns.catplot(y="Response", hue='Gender', kind="count",
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_16_1.png)
-    
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_16_1.png" alt="lr2">
 
 
 There seems to be a slight difference in the distribution of the Gender variable between the two levels of the response. We also see that there are more males than females in the training set. Let's move on to Driving_License.
@@ -432,8 +430,7 @@ sns.catplot(y="Response", hue='Driving_License', kind="count",
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_19_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_19_1.png" alt="lr2">    
     
 
 
@@ -481,8 +478,7 @@ sns.catplot(y='Region_Code', kind="count",
 
 
     
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_23_1.png)
-    
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_23_1.png" alt="lr2">
 
 
 We see that Regions 8 and 28 dominate the training sample. It will be interesting to see if this variable ends up being predictive, but my intuition says not as there are a few dominating categories. Let's see the percentage of observations in each category.
@@ -595,8 +591,7 @@ sns.catplot(y="Response", hue='Previously_Insured', kind="count",
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_28_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_28_1.png" alt="lr2">    
     
 
 
@@ -658,8 +653,7 @@ sns.catplot(y="Response", hue='Vehicle_Age', kind="count",
 
 
     
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_32_1.png)
-    
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_32_1.png" alt="lr2">        
 
 
 Most interestingly, clients with vehicles less than a year old are far less likely to be interested in vehicle insurance. Let's analyse Vehicle_Damage.
@@ -704,8 +698,8 @@ sns.catplot(y="Response", hue='Vehicle_Damage', kind="count",
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_35_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_35_1.png" alt="lr2">      
+
     
 
 
@@ -796,8 +790,8 @@ sns.displot(pd.concat([train, y], axis=1), x="Age", hue="Response")
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_42_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_42_1.png" alt="lr2">      
+
     
 
 
@@ -877,8 +871,8 @@ sns.displot(pd.concat([train, y], axis=1), x="Annual_Premium", hue="Response")
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_47_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_47_1.png" alt="lr2">    
+
     
 
 
@@ -1089,8 +1083,9 @@ sns.catplot(y="Response", kind="count",
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_50_1.png)
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_50_1.png" alt="lr2">    
+
     
 
 
@@ -1110,8 +1105,8 @@ sns.displot(pd.concat([train, y], axis=1)[(pd.concat([train, y], axis=1)["Annual
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_52_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_52_1.png" alt="lr2">    
+
     
 
 
@@ -1151,8 +1146,7 @@ sns.displot(pd.concat([train, y], axis=1), x="Vintage", hue="Response")
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_55_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_55_1.png" alt="lr2">    
     
 
 
@@ -1619,8 +1613,7 @@ plot_fi(fi)
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_80_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_80_1.png" alt="lr2">
     
 
 
@@ -1636,8 +1629,7 @@ plot_partial_dependence(clf_rf, X_val, ['Age','Annual_Premium'],
 ```
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_82_0.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_82_0.png" alt="lr2">        
     
 
 
@@ -1649,8 +1641,7 @@ plot_partial_dependence(clf_rf, X_val, ['Vintage'],
 ```
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_83_0.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_83_0.png" alt="lr2">
     
 
 
@@ -1786,8 +1777,7 @@ plot_fi(fi)
 
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_95_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_95_1.png" alt="lr2">
     
 
 
@@ -1818,8 +1808,7 @@ plot_partial_dependence(bst_sk, X_val, ['Age','Annual_Premium'],
 ```
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_98_0.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_98_0.png" alt="lr2">    
     
 
 
@@ -1831,8 +1820,7 @@ plot_partial_dependence(bst_sk, X_val, ['Vintage'],
 ```
 
 
-    
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_99_0.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_99_0.png" alt="lr2">
     
 
 
