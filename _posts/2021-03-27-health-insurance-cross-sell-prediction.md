@@ -1964,7 +1964,7 @@ plot_fi(fi)
 
 
     
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_95_1.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_95_1.png" alt="lr2">
     
 
 
@@ -1996,7 +1996,7 @@ plot_partial_dependence(bst_sk, X_val, ['Age','Annual_Premium'],
 
 
     
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_98_0.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_98_0.png" alt="lr2">
     
 
 
@@ -2009,7 +2009,7 @@ plot_partial_dependence(bst_sk, X_val, ['Vintage'],
 
 
     
-![png](Health_Insurance_Cross_Sell_Prediction_files/Health_Insurance_Cross_Sell_Prediction_99_0.png)
+<img src="{{ site.url }}{{ site.baseurl }}/images/insurance_cross_sell/Health_Insurance_Cross_Sell_Prediction_99_0.png" alt="lr2">
     
 
 
