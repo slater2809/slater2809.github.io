@@ -1859,9 +1859,6 @@ parameters = {'objective' : 'binary',
 bst = lgb.train(parameters, train_data, valid_sets=[validation_data], verbose_eval=False)
 ```
 
-    [LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.001517 seconds.
-    You can set `force_row_wise=true` to remove the overhead.
-    And if memory is not enough, you can set `force_col_wise=true`.
     
 
 
